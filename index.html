@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>搜韵典故每日打卡</title>
+<style>
+:root{--bg:#f6f2e9;--card:#fffdf7;--tx:#332f28;--tx2:#6f6858;--bd:#e2d8c4;--pri:#9c2b23;--pri2:#2f5d50;--soft:#f1ebdd}
+html[data-theme="dark"]{--bg:#191816;--card:#221f1c;--tx:#e8e3d8;--tx2:#a49b88;--bd:#3a352e;--pri:#d4736a;--pri2:#7fb3a1;--soft:#26231f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Songti SC","STSong","SimSun",system-ui,"Microsoft YaHei",serif;font-size:15px;line-height:1.75}
+header{border-bottom:1px solid var(--bd);background:var(--card)}
+.hd{max-width:1040px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hd h1{font-size:20px;margin:0;letter-spacing:2px;font-weight:600}
+.hd .sub{color:var(--tx2);font-size:12px;letter-spacing:1px}
+.spacer{flex:1}
+button{font-family:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:4px;cursor:pointer}
+button:hover{border-color:var(--pri)}
+button.pri{background:var(--pri);border-color:var(--pri);color:#fff}
+button.gh{background:transparent}
+button.on{background:var(--pri2);border-color:var(--pri2);color:#fff}
+button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1040px;margin:0 auto;padding:16px}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px 16px;margin-bottom:14px}
+.box h2{font-size:15px;margin:0 0 10px;letter-spacing:1px;font-weight:600;border-left:3px solid var(--pri);padding-left:8px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.row>*{font-size:13px}
+label.ck{display:inline-flex;align-items:center;gap:5px;cursor:pointer;border:1px solid var(--bd);padding:3px 10px;border-radius:14px;background:var(--soft)}
+label.ck input{margin:0}
+input[type=text],input[type=password],select,textarea{font-family:inherit;font-size:13px;padding:6px 8px;border:1px solid var(--bd);border-radius:4px;background:var(--card);color:var(--tx)}
+textarea{width:100%;min-height:64px;resize:vertical}
+.hint{color:var(--tx2);font-size:12px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:12px 14px}
+.card .nm{font-size:17px;font-weight:600;letter-spacing:1px}
+.card .who{font-size:12px;color:var(--pri2);margin-top:2px}
+.card .df{margin:8px 0 0;font-size:14px}
+.card .sr{font-size:12px;color:var(--tx2)}
+.card .src{margin:8px 0 0;padding:7px 10px 8px;background:var(--soft);border-left:3px solid var(--pri2);border-radius:3px}
+.card .src .sb{font-size:12.5px;color:var(--pri2);line-height:1.7;word-break:break-all}
+.card .src .sc{margin-top:4px;font-size:13px;line-height:1.9;color:var(--tx);white-space:pre-line}
+.card .qt{margin:8px 0 0;padding:8px 10px;background:var(--soft);border-radius:4px;font-size:13px}
+.card .qt .au{color:var(--tx2);font-size:12px}
+.card .act{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card .mynote{margin-top:9px;padding:8px 10px;border:1px dashed var(--bd);border-radius:4px;background:transparent}
+.card .mynote.has{border-style:solid;border-left:3px solid var(--pri);background:var(--soft)}
+.card .mynote .mn-h{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--tx2)}
+.card .mynote .mn-h b{color:var(--pri);font-size:12px;letter-spacing:1px}
+.card .mynote .mn-t{flex:1}
+.card .mynote .mn-b{margin-top:6px;font-size:13.5px;line-height:1.9;white-space:pre-line;word-break:break-word}
+.card .mynote textarea{width:100%;min-height:76px;box-sizing:border-box;font-family:inherit;font-size:13.5px;line-height:1.8;padding:7px 9px;border:1px solid var(--bd);border-radius:4px;background:var(--card);color:var(--tx);resize:vertical}
+.card .mynote .mn-row{margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card .mn-pv{font-size:11.5px;color:var(--tx2)}
+.card .anl{margin-top:9px}
+.card .anl-btn{font-size:12px}
+.card .anl-b{margin-top:6px;padding:9px 11px;background:var(--soft);border-left:3px solid var(--pri2);border-radius:3px;font-size:13.5px;line-height:1.9;color:var(--tx)}
+.card .anl-f{margin-top:6px;padding-top:5px;border-top:1px solid var(--bd);font-size:11.5px;color:var(--tx2)}
+.card .trs{margin-top:6px}
+.card .trs-b{margin-top:6px;padding:9px 11px;background:var(--soft);border-left:3px solid var(--pri2);border-radius:3px}
+.card .trs .tr-l{margin:0 0 8px;font-size:13.5px;line-height:1.85;color:var(--tx)}
+.card .trs .tr-l:last-child{margin-bottom:0}
+.card .trs .tr-o{display:block;font-size:12px;color:var(--tx2);line-height:1.7;margin-bottom:2px}
+.card .trs .tr-f{margin-top:8px;padding-top:5px;border-top:1px solid var(--bd);font-size:11.5px;color:var(--tx2);line-height:1.7}
+.pbar{border-left:3px solid var(--pri2)}
+.pbar .cur{font-size:19px;font-weight:600;letter-spacing:1px}
+.pbar .ord{color:var(--tx2);font-size:12px}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;max-height:460px;overflow:auto;border:1px solid var(--bd);border-radius:4px;padding:8px}
+.prow{display:flex;gap:6px;align-items:baseline;text-align:left;padding:3px 8px;font-size:13px}
+.prow .pi{color:var(--tx2);font-size:11px;min-width:30px}
+.prow .pn{flex:1}
+.prow .pc{color:var(--pri);font-size:12px}
+.prow .pd{color:var(--tx2);font-size:11px}
+table.cal{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+table.cal th,table.cal td{border:1px solid var(--bd);text-align:center;padding:5px 0;height:34px}
+table.cal th{color:var(--tx2);font-weight:400}
+table.cal td.has{background:var(--pri);color:#fff;border-radius:2px}
+table.cal td.today{outline:2px solid var(--pri2);outline-offset:-2px}
+ol.hist{margin:0;padding-left:20px;font-size:13px}
+ol.hist li{margin-bottom:3px}
+.ans{white-space:pre-wrap;font-size:14px;background:var(--soft);border-radius:4px;padding:10px;margin-top:10px;min-height:20px}
+footer{border-top:1px solid var(--bd);background:var(--card);margin-top:20px}
+footer .in{max-width:1040px;margin:0 auto;padding:16px;font-size:13px;color:var(--tx2);line-height:1.9}
+footer .in b{color:var(--tx)}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--pri);color:#fff;padding:8px 18px;border-radius:4px;font-size:13px;display:none;z-index:9;max-width:80vw;text-align:center}
+.hide{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hd">
+  <div>
+    <h1>搜韵典故每日打卡</h1>
+    <div class="sub" id="dataTag">人物为单元 · 顺序轮学 · 数据源：搜韵典故索引</div>
+  </div>
+  <div class="spacer"></div>
+  <button id="tabMain" class="on">打卡</button>
+  <button id="tabPerson">人物</button>
+  <button id="tabFav">收藏</button>
+  <button id="tabNote">我的笔记</button>
+  <button id="tabHist">日历 / 记录</button>
+  <button id="themeBtn">暗色</button>
+</div>
+</header>
+
+<main>
+  <!-- ===== 打卡 ===== -->
+  <section id="viewMain">
+    <div class="box pbar">
+      <div class="row">
+        <button id="prevP">← 上一位</button>
+        <span class="cur" id="curName">—</span>
+        <span class="hint" id="curCount"></span>
+        <button id="nextP">下一位 →</button>
+        <span class="spacer"></span>
+        <span class="ord" id="curOrder"></span>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <span>本次打卡条数：</span>
+        <input type="text" id="num" inputmode="numeric" style="width:88px" placeholder="如 3">
+        <span class="hint" id="numHint"></span>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="drawBtn" class="pri">抽取生成卡片</button>
+        <button id="allBtn" class="gh">载入本人全部典故</button>
+        <button id="pickBtn" class="gh">去人物列表点选</button>
+        <span class="hint" id="status"></span>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <span>快速定位人物：</span>
+        <input type="text" id="search" style="min-width:190px" placeholder="输入人物名，如 孔子 / 李白">
+        <span class="hint" id="searchMsg"></span>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:8px">
+      <b id="todayTitle"></b>
+      <span id="prog" class="hint"></span>
+    </div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <!-- ===== 人物 ===== -->
+  <section id="viewPerson" class="hide">
+    <div class="box">
+      <h2>搜韵人物典故索引</h2>
+      <div class="hint" style="margin-bottom:8px">
+        严格按搜韵 <b>AllusionsIndex.aspx?sort=People</b> 页面的人物顺序展开；括号内数字为该人物在搜韵典故索引中的典故条目总数。
+        一个人物学完，再进入下一位；也可直接点选任意人物跳转。
+      </div>
+      <div class="row" style="margin-bottom:8px">
+        <input type="text" id="pSearch" style="min-width:220px" placeholder="检索人物名（支持模糊匹配）">
+        <button id="pClear" class="gh">清空</button>
+        <span class="hint" id="pMsg"></span>
+      </div>
+      <div class="plist" id="plist"></div>
+      <div class="row" style="margin-top:8px">
+        <button id="moreBtn">显示更多</button>
+        <span class="hint" id="pStat"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 收藏 ===== -->
+  <section id="viewFav" class="hide">
+    <h2 style="font-size:15px;margin:0 0 10px">我的收藏（<span id="favN">0</span>）</h2>
+    <div class="grid" id="favCards"></div>
+  </section>
+
+  <!-- ===== 我的笔记 ===== -->
+  <section id="viewNote" class="hide">
+    <div class="box">
+      <h2>我的笔记（<span id="noteN">0</span> 条）</h2>
+      <div class="hint" style="margin-bottom:8px">
+        这是你自己写下的典故概括，与搜韵原文严格分开展示。笔记只保存在本机浏览器 localStorage，不会上传，也不随 AI 提问送出。
+      </div>
+      <div class="row" style="margin-bottom:8px">
+        <input type="text" id="nSearch" style="min-width:220px" placeholder="检索笔记内容或典故名">
+        <button id="nClear" class="gh">清空筛选</button>
+        <span class="spacer"></span>
+        <button id="nExport" class="gh">导出笔记（.txt）</button>
+        <button id="nReset" class="gh">清空全部笔记</button>
+      </div>
+      <div class="grid" id="noteCards"></div>
+    </div>
+  </section>
+
+  <!-- ===== 日历 / 记录 ===== -->
+  <section id="viewHist" class="hide">
+    <div class="box">
+      <h2>打卡日历</h2>
+      <div class="row" style="margin-bottom:8px">
+        <button id="mPrev">上月</button><b id="mTitle"></b><button id="mNext">下月</button>
+        <span class="spacer"></span>
+        <button id="resetBtn" class="gh">一键重置打卡</button>
+      </div>
+      <table class="cal"><thead><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr></thead>
+      <tbody id="calBody"></tbody></table>
+      <div class="hint" style="margin-top:6px">红色格子 = 当天有打卡记录，格内数字为当日打卡典故数。</div>
+    </div>
+    <div class="box">
+      <h2>历史打卡记录</h2>
+      <ol class="hist" id="histList"></ol>
+    </div>
+  </section>
+
+  <!-- ===== 设置 / AI ===== -->
+  <section class="box">
+    <h2>数据与联网设置</h2>
+    <div class="hint" style="margin-bottom:8px">
+      默认<b>完全不联网</b>：人物与典故来自本目录下的 souyun-people.js、souyun-allusions.js（由「更新搜韵数据.py」抓取生成，用本地文件加载）。
+      仅当下面填写了代理地址并手动点击按钮时，才会联网读取搜韵公开页面。
+    </div>
+    <div class="row" style="margin-bottom:8px">
+      <span>搜韵抓取代理（可选）：</span>
+      <input type="text" id="proxy" style="min-width:300px" placeholder="如 https://your-proxy/?url=">
+      <button id="fetchP" class="gh">联网获取当前人物典故</button>
+    </div>
+    <div class="row">
+      <span class="hint">
+        浏览器出于跨域安全限制，无法直接读取 sou-yun.cn 页面；如需联网取数，请填入可转发请求的代理前缀（会把搜韵页面地址拼在其后）。
+        未配置代理时，请用「更新搜韵数据.py」在本机抓取，或用搜韵原站查看。
+      </span>
+    </div>
+    <div class="hint" style="margin-top:6px" id="cacheInfo"></div>
+  </section>
+
+  <section class="box">
+    <h2>AI 提问（DeepSeek 辅助）</h2>
+    <div class="hint" style="margin-bottom:6px">
+      仅围绕典故与古典诗词作答：释义延伸、词义辨析、诗词赏析、多个典故横向对比、典故在诗词中的活用。
+      仅在你点击「提交问题」时联网；提问内容之外的数据（打卡、收藏、本地典故数据）一律不外传。
+    </div>
+    <textarea id="q" placeholder="例：孔子名下「吾道穷」与「卑宫」，一个写不遇、一个写俭德，用法上怎么区分？"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="askBtn" class="pri">提交问题</button>
+      <button id="clearQ" class="gh">清空回答</button>
+      <span>API Key：</span>
+      <input type="password" id="key" style="min-width:220px" placeholder="sk-... 仅存本机浏览器">
+      <button id="saveKey" class="gh">保存</button>
+    </div>
+    <div class="ans" id="ans">（回答显示在这里）</div>
+  </section>
+</main>
+
+<footer>
+<div class="in">
+  <b>① 项目为静态 HTML 文件，保存到本地文件夹，双击即可打开</b><br>
+  本目录需同时保留 <b>souyun-people.js</b>、<b>souyun-allusions.js</b>（搜韵人物与典故数据）与 <b>local-trans.js</b>（本地译文词表）才能显示完整人物列表与白话翻译；缺少 souyun 数据文件时页面会自动回退到内置的 66 条典故示例库，缺少 local-trans.js 时「文献原文白话翻译」按钮不显示，其余功能不受影响。<br><br>
+  <b>② 桌面快捷方式教程：右键 html 文件 → 发送到 → 桌面快捷方式</b><br>
+  也可右键 index.html → 新建快捷方式，再把它拖到桌面。双击快捷方式即可打开本页。<br><br>
+  <b>③ 安全说明</b><br>
+  网页请求仅读取搜韵<b>公开页面</b>内容，不提交账号信息、不携带任何登录凭据；除用户手动填写代理并点击取数、或点击提交 AI 提问外，不会发起任何网络请求，也不会静默上传打卡 / 收藏 / 笔记数据。
+  打卡、收藏、<b>我的笔记</b>、DeepSeek API Key 均保存在浏览器 localStorage（仅本机可见），清除浏览器缓存会丢失记录。
+  笔记属于你个人的内容，只留在本机，既不上传也不随 AI 提问一起送出（提问只发送你在输入框里写的那句话）。<br><br>
+  <b>AI 诗词用法简析：</b>每张典故卡片最下方有「查看赏析」按钮（默认收起）。点击后在<b>本机浏览器内</b>即时生成 120 字以内的用法简析，
+  含表意侧重、情感倾向与两种典型手法，并引该条真实的搜韵出处与诗词用例。<b>该分析完全由页面内置的本地分析引擎完成：不联网、不读取也不填写任何 API Key、不接入任何第三方远程大模型接口</b>，
+  因此不会产生任何网络请求与费用；简析结果只缓存在当前页面内存中，刷新即重算，不写入本地存储。<br><br>
+  <b>我的笔记：</b>每张典故卡片下方都有「＋ 补充我的笔记」，点开即可用你自己的话概括这个典故（Ctrl+Enter 保存 · Esc 取消）。
+  写完的内容会直接显示在卡片上；顶部「我的笔记」页签可集中查看、检索、导出为 .txt，也可单条删除或一键清空。<br><br>
+  <b>文献原文白话翻译：</b>搜韵原文段落正下方有「文献原文白话翻译」按钮，点开显示逐句对照的白话译文；<b>默认收起，不点开就不做任何计算</b>。
+  译文由本机浏览器内置的本地译文引擎生成，依据为通行译注体例与《古汉语常用字字典》通行义项，词表存于同目录 <b>local-trans.js</b>；
+  <b>全程不联网、不调用任何外部接口、不读取也不消耗任何 DeepSeek API Key 额度</b>。未能对译的专名与僻字按原文保留，不作臆测，译文仅供理解文意参考（需要更深入的疏解，可用上方「AI 提问」，那一步需自备 Key 且由你主动联网发起）。<br><br>
+  <b>数据更新：</b>双击运行 <b>更新搜韵数据.bat</b> 可重新抓取搜韵人物索引与典故（默认抓典故数 ≥ 3 的人物；加 <code>--min 1</code> 抓全部 2513 位）；
+  双击 <b>补抓典籍原文.bat</b> 可按需补齐卡片「出处」里的典籍原文（增量补抓，已抓到的自动跳过）。
+</div>
+</footer>
+
+<div id="toast"></div>
+
+<!-- 搜韵数据（本地文件加载，不走网络；缺失时自动回退内置库） -->
+<script src="souyun-people.js"></script>
+<script src="souyun-allusions.js"></script>
+<script src="local-trans.js"></script>
+
+<script>
+/* ============ 常量 ============ */
+var K_THEME="sy_theme",K_SET="sy_setting",K_CHECK="sy_checkin",K_FAV="sy_fav",
+    K_CACHE="sy_cache",K_KEY="sy_apikey",K_CUR="sy_cur",K_NOTE="sy_notes";
+var CACHE_DAYS=7;
+var SYS="你是古典诗词典故助手。只回答与典故、古典诗词相关的问题（释义、出处、词义辨析、诗词赏析、典故对比、典故活用、相关人物）。"+
+        "遇到与典故和古典诗词无关的问题，只回复一句：请围绕典故或古典诗词提问。严禁编造诗句，不确定的例句不要给出。回答简明，使用简体中文。";
+
+/* ============ 内置兜底典故库（数据文件缺失时使用） ============
+   [典故名, 人物, 释义, 出处, 例句[[句,作者题名]]]
+   例句取自搜韵典故库所附历代诗词用例；不能确证者留空，不编造。
+   本内置库仅作「数据文件缺失」时的兜底，不含典籍原文；
+   正式数据来自同目录 souyun-allusions.js，含出处书名（《书名》篇名～卷次～）与典籍原文。
+*/
+var BUILTIN_RAW=[
+["采薇","伯夷","伯夷、叔齐不食周粟，隐于首阳山采薇而食。后指隐逸守节、不仕新朝。","《史记·伯夷列传》",[["相顾无相识，长歌怀采薇。","王绩《野望》"]]],
+["吾道穷","孔子","孔子西狩获麟，反袂拭面而叹吾道穷。后喻生不逢时、道不行于世。","《春秋公羊传注疏》",[["希圣如有立，绝笔于获麟。","李白《古风》"]]],
+["五柳","陶渊明","陶渊明宅边有五柳树，自号五柳先生。后指弃官归隐的高士。","《五柳先生传》",[["复值接舆醉，狂歌五柳前。","王维《辋川闲居赠裴秀才迪》"]]],
+["桃花源","陶渊明","武陵渔人入桃花林，得洞中避秦之民，复寻不得。后指隐居处或仙境。","《陶渊明集》卷六《桃花源记》",[["浮世度千载，桃源方一春。","于武陵《赠王道士》"],["渡口问渔家，桃源路深浅。","刘长卿《石围峰》"]]],
+["采菊","陶渊明","陶渊明采菊东篱，悠然自得。后喻隐逸闲适。","陶渊明《饮酒》",[["采菊东篱下，悠然见南山。","陶渊明《饮酒》"]]],
+["出师","诸葛亮","诸葛亮六出祁山，志复中原而未成。后喻鞠躬尽瘁、壮志未酬。","《三国志·诸葛亮传》",[["出师未捷身先死，长使英雄泪满襟。","杜甫《蜀相》"]]],
+["巫山云雨","宋玉","宋玉赋高唐神女，朝云暮雨于阳台。后喻男女情爱或虚幻难期。","宋玉《高唐赋》",[["曾经沧海难为水，除却巫山不是云。","元稹《离思》"]]],
+["易水","荆轲","荆轲别燕太子丹于易水，慷慨西入秦。后喻壮士赴难、义无反顾。","《史记·刺客列传》",[["昔时人已没，今日水犹寒。","骆宾王《易水送别》"]]],
+["赤壁","周瑜","三国孙刘联军破曹操于此。后喻怀古兴亡、英雄事业。","《三国志·吴主传》",[["大江东去，浪淘尽，千古风流人物。","苏轼《念奴娇·赤壁怀古》"]]],
+["举杯邀月","李白","李白月下独酌，邀明月与身影共饮。后喻孤高自适。","李白《月下独酌》",[["举杯邀明月，对影成三人。","李白《月下独酌》"]]],
+["金樽","李白","金制酒器。后喻美酒、宴饮与人生行乐。","李白《将进酒》",[["人生得意须尽欢，莫使金樽空对月。","李白《将进酒》"]]],
+["白发","李白","白发因愁而生。后喻愁思深重、年华老去。","李白《秋浦歌》",[["白发三千丈，缘愁似个长。","李白《秋浦歌》"]]],
+["孤帆","李白","帆影没于天际。后喻远行、送别与怅望。","李白《黄鹤楼送孟浩然之广陵》",[["孤帆远影碧空尽，唯见长江天际流。","李白《黄鹤楼送孟浩然之广陵》"]]],
+["忘机","李白","去机心而与物无争。后喻淡泊闲适的隐逸心境。","《列子·黄帝》",[["我醉君复乐，陶然共忘机。","李白《下终南山过斛斯山人宿置酒》"]]],
+["烛","李商隐","夜雨剪烛，西窗共话。后喻夜谈、思念与重逢之约。","李商隐《夜雨寄北》",[["何当共剪西窗烛，却话巴山夜雨时。","李商隐《夜雨寄北》"]]],
+["夕阳","李商隐","日暮西山。后喻迟暮、晚景与兴亡之叹。","李商隐《登乐游原》",[["夕阳无限好，只是近黄昏。","李商隐《登乐游原》"]]],
+["嫦娥","嫦娥","嫦娥窃不死之药奔月，独居广寒宫。后喻孤寂清冷、高洁独处。","《淮南子·览冥训》",[["嫦娥应悔偷灵药，碧海青天夜夜心。","李商隐《嫦娥》"]]],
+["婵娟","苏轼","本指姿态美好，亦指明月。后喻共享月色、团圆祝愿。","苏轼《水调歌头》",[["但愿人长久，千里共婵娟。","苏轼《水调歌头》"]]],
+["浮生","苏轼","人生飘忽如寄。后喻世事无常与旷达自适。","《庄子·刻意》",[["长恨此身非我有，何时忘却营营。","苏轼《临江仙》"]]],
+["梦蝶","庄子","庄周梦为蝴蝶，醒后不知物我。后喻人生如梦、物我难分。","《庄子·齐物论》",[["庄生晓梦迷蝴蝶，望帝春心托杜鹃。","李商隐《锦瑟》"]]],
+["苏武牧羊","苏武","苏武持节牧羊北海十九年不改其志。后喻忠贞守节。","《汉书·苏武传》",[["茂陵不见封侯印，空向秋波哭逝川。","温庭筠《苏武庙》"]]],
+["雁书","苏武","雁可传书，古以雁为使。后喻音信、书信。","《汉书·苏武传》",[["云中谁寄锦书来，雁字回时，月满西楼。","李清照《一剪梅》"]]],
+["商山四皓","商山四皓","秦末东园公等四人避乱隐于商山，须眉皓白，后应汉廷之请出山辅太子。","《史记·留侯世家》",[]],
+["西施","西施","越女西施浣纱，后被献于吴王。后喻绝色美人或其命运。","《吴越春秋》",[["艳色天下重，西施宁久微。","王维《西施咏》"]]],
+["穷途","阮籍","阮籍驾车途穷则恸哭而返。后喻世路艰难、无路可走。","《晋书·阮籍传》",[]],
+["烂柯","王质","王质入山观棋，归时斧柄已朽，乡人皆非。后喻世事变迁、光阴易逝。","《述异记》",[["到乡翻似烂柯人。","刘禹锡《酬乐天扬州初逢席上见赠》"]]],
+["梦","李煜","梦中之境，醒后难寻。后喻往事、幻灭与人生无常。","李煜《浪淘沙》",[["梦里不知身是客，一晌贪欢。","李煜《浪淘沙》"]]],
+["流水","孔子","水东流不返。后喻时光流逝与愁思无尽。","《论语·子罕》",[["问君能有几多愁？恰似一江春水向东流。","李煜《虞美人》"]]],
+["望月思乡","李白","举头见月而低头思乡。后喻羁旅怀乡。","李白《静夜思》",[["举头望明月，低头思故乡。","李白《静夜思》"]]],
+["独钓","柳宗元","蓑笠独钓于寒江。后喻孤高傲世、避世自守。","柳宗元《江雪》",[["孤舟蓑笠翁，独钓寒江雪。","柳宗元《江雪》"]]]
+];
+
+/* ============ 数据装载：优先搜韵人物索引 ============ */
+var SY_P=(window.SOUYUN_PEOPLE&&window.SOUYUN_PEOPLE.people)||null;
+var SY_A=(window.SOUYUN_ALLUSIONS&&window.SOUYUN_ALLUSIONS.allusions)||null;
+var DATA_MODE=SY_P&&SY_P.length?"souyun":"builtin";
+var DATA_TIME=(window.SOUYUN_ALLUSIONS&&window.SOUYUN_ALLUSIONS.fetchedAt)||
+              (window.SOUYUN_PEOPLE&&window.SOUYUN_PEOPLE.fetchedAt)||"";
+
+var PEOPLE=[];       /* [{i,n,c}] 按搜韵页面顺序 */
+var ITEMS={};        /* i -> [{id,n,who,d,s,q}] */
+
+function buildData(){
+  PEOPLE=[];ITEMS={};
+  if(DATA_MODE==="souyun"){
+    SY_P.forEach(function(p){PEOPLE.push({i:p.i,n:p.n,c:p.c});});
+  }else{
+    var m={},order=[];
+    BUILTIN_RAW.forEach(function(r){
+      if(!m[r[1]]){m[r[1]]=[];order.push(r[1]);}
+      m[r[1]].push(r);
+    });
+    order.forEach(function(nm,k){
+      PEOPLE.push({i:k,n:nm,c:m[nm].length});
+      ITEMS[k]=m[nm].map(function(r,i){
+        return {id:"b"+k+"|"+r[0],n:r[0],who:nm,d:r[2],s:r[3],q:r[4]||[]};
+      });
+    });
+    return;
+  }
+  /* 搜韵模式：明细只为已抓取的人物建立索引，用到时再生成 */
+}
+function rawItems(i){
+  if(ITEMS[i])return ITEMS[i];
+  var arr=(DATA_MODE==="souyun"&&SY_A&&SY_A[String(i)])||[];
+  var who=(PEOPLE[i]&&PEOPLE[i].n)||"";
+  var list=arr.map(function(o,k){
+    return {id:"s"+i+"|"+o.n,k:k,n:o.n,who:who,d:o.d||"",s:o.s||"",w:o.w||"",q:o.q||[]};
+  });
+  ITEMS[i]=list;
+  return list;
+}
+/* 本地明细 + 联网取回缓存（7 天）合并，按典故名去重 */
+function itemsOf(i){
+  var base=rawItems(i);
+  var c=CACHE.map[i];
+  if(!c||!c.items||!c.items.length)return base;
+  var seen={},out=[],who=(PEOPLE[i]&&PEOPLE[i].n)||"";
+  base.forEach(function(o){seen[o.n]=1;out.push(o);});
+  c.items.forEach(function(o){
+    if(seen[o.n])return;
+    seen[o.n]=1;
+    out.push({id:"n"+i+"|"+o.n,k:out.length,n:o.n,who:who,d:o.d||"",s:o.s||"",w:o.w||"",q:o.q||[]});
+  });
+  return out;
+}
+function hasDetail(i){
+  if(DATA_MODE!=="souyun")return true;
+  if(rawItems(i).length)return true;
+  var c=CACHE.map[i];
+  return !!(c&&c.items&&c.items.length);
+}
+
+/* ============ 基础工具 ============ */
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+function pad(n){return n<10?"0"+n:""+n;}
+function dkey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function today(){return dkey(new Date());}
+function read(k,dv){try{var v=localStorage.getItem(k);return v?JSON.parse(v):dv;}catch(e){return dv;}}
+function write(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function del(k){try{localStorage.removeItem(k);}catch(e){}}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(function(){t.style.display="none";},2800);}
+function seedOf(str){var h=2166136261;for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rnd(seed){var s=seed||1;return function(){s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};}
+function shuffle(a,seed){var x=a.slice(),r=rnd(seed);for(var i=x.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=x[i];x[i]=x[j];x[j]=t;}return x;}
+
+/* ============ 状态 ============ */
+var SET=read(K_SET,{count:3,proxy:""});
+if(!(parseInt(SET.count,10)>0))SET.count=3;
+var FAV=read(K_FAV,{});
+var NOTES=read(K_NOTE,{});
+var CHECK=read(K_CHECK,{});
+var CUR=read(K_CUR,{i:0});
+var CACHE=read(K_CACHE,null);
+if(!CACHE||typeof CACHE!=="object"||!CACHE.map)CACHE={ts:0,map:{}};
+var cur=0, showAll=false, drawnIds=null, IDX=null;
+
+/* 联网缓存仅保留 7 天，到期自动清理 */
+function cleanCache(){
+  if(CACHE.ts&&(Date.now()-CACHE.ts)>=CACHE_DAYS*86400000){
+    CACHE={ts:0,map:{}};del(K_CACHE);return true;
+  }
+  return false;
+}
+
+/* ============ 我的笔记（自己补充概括，本地 localStorage） ============ */
+function noteOf(id){var r=NOTES[id];return (r&&r.t)||"";}
+function noteSave(id,t){
+  t=String(t||"").trim();
+  if(!t){delete NOTES[id];}
+  else{NOTES[id]={t:t,u:Date.now()};}
+  write(K_NOTE,NOTES);
+}
+function noteCount(){
+  var n=0,k;
+  for(k in NOTES){if(NOTES[k]&&String(NOTES[k].t||"").trim())n++;}
+  return n;
+}
+
+/* ============ 打卡与收藏 ============ */
+function checkedIds(){
+  var s={},k,j;
+  for(k in CHECK){var a=CHECK[k]||[];for(j=0;j<a.length;j++)s[a[j]]=1;}
+  return s;
+}
+function isChecked(id){return (CHECK[today()]||[]).indexOf(id)>=0;}
+
+/* ============ 抽取 ============ */
+function drawFor(i,n){
+  var items=itemsOf(i);
+  if(!items.length)return [];
+  if(n>=items.length)return items.slice();
+  return shuffle(items,seedOf(today()+"#"+i+"#"+(SET.proxy?"":"")+n)).slice(0,n);
+}
+function currentList(){
+  var items=itemsOf(cur);
+  if(!items.length)return [];
+  if(showAll)return items;
+  if(drawnIds){
+    var m={};items.forEach(function(o){m[o.id]=o;});
+    var out=[];drawnIds.forEach(function(id){if(m[id])out.push(m[id]);});
+    if(out.length)return out;
+  }
+  return drawFor(cur,Math.min(SET.count,items.length));
+}
+
+/* ============ 渲染 ============ */
+/* 出处块：书名（含搜韵卷次标记）+ 典籍原文，与搜韵典故页展示一致 */
+function srcHTML(o){
+  if(!o.s&&!o.w)return '';
+  return '<div class="src">'+
+    (o.s?'<div class="sb">'+esc(o.s)+'</div>':'')+
+    (o.w?'<div class="sc">'+esc(o.w)+'</div>':'')+
+    '</div>';
+}
+/* ============ 文献原文白话翻译（本地引擎：不联网、不用密钥） ============ */
+var TRS={},TRD=window.LOCAL_TR||null;
+var TR_AUTH={},TR_W={},TR_PAT=[];
+(function(){
+  if(!TRD||!TRD.w)return;
+  TR_W=TRD.w;
+  function nk(x){return String(x).replace(/^[「『“"\s]+|[」』”"\s]+$/g,"").replace(/[。！？；…\s]+$/,"");}
+  function nk2(x){return nk(x).replace(/[，、：；！？。…「」『』“”"《》〈〉（）()\[\]【】\s]/g,"");}
+  for(var k in TRD.auth){
+    var a=nk(k);if(a&&TR_AUTH[a]===undefined)TR_AUTH[a]=TRD.auth[k];
+    var b=nk2(k);if(b&&TR_AUTH[b]===undefined)TR_AUTH[b]=TRD.auth[k];
+  }
+  (TRD.pat||[]).forEach(function(q){TR_PAT.push([new RegExp(q[0]),q[1]]);});
+})();
+var TR_VERBS="名与使令为谓知闻见杀立封赐拜召问告示教报送遣夺取予加处置居过访迎待从随救助佐事奉受有无得失望思虑念爱恶乐患忧恐惧求索追舍去就归致遗寄献进陈设张布树饮食衣御乘语游友服遵守用行履遭遇逢视观望顾省察喻晓感动化教诲劝谏叹嗟哭泣歌舞祭祷卜筮医疗伤创死遁逃奔走趋步骑舟渡济登降升坠落卧寝坐跪揖退旋转回返还至到抵达及逮比临逾越度量称衡计谋图辩论诘责咎尤怨怒悔惭愧喜悦娱欢悲痛恤辅赞率统督领兼摄署假除迁徙转补选举荐辟聘徵乞募命派屯镇拒距攻伐击破克拔略定屠降叛反乱扰侵犯掠夺劫窃盗贼诛戮斩枭刑囚系拘执收捕缚焚娶嫁枕握";
+var TR_V={};for(var vi=0;vi<TR_VERBS.length;vi++)TR_V[TR_VERBS.charAt(vi)]=1;
+function trLongest(t,i){
+  for(var k=Math.min(7,t.length-i);k>=1;k--){
+    var u=t.substr(i,k);
+    if(Object.prototype.hasOwnProperty.call(TR_W,u))return{k:k,v:TR_W[u]};
+  }
+  return null;
+}
+function trWords(t){
+  var out="",i=0;
+  while(i<t.length){
+    if(t.charAt(i)==="之"){
+      var p1=t.charAt(i-1),p2=i>=2?t.substr(i-2,2):"";
+      out+=(TR_V[p1]||TR_V[p2])?"他":"的";i++;continue;
+    }
+    var h=trLongest(t,i);
+    if(h){out+=h.v;i+=h.k;}else{out+=t.charAt(i);i++;}
+  }
+  return out;
+}
+function trPatGo(t){
+  for(var i=0;i<TR_PAT.length;i++)if(TR_PAT[i][0].test(t))return t.replace(TR_PAT[i][0],TR_PAT[i][1]);
+  return null;
+}
+function trJoin(t,punc){
+  t=String(t);
+  if(!punc)return t;
+  if(/[。！？]$/.test(t))return t;
+  if(/[，、；]$/.test(t))return /[，、；]/.test(punc)?t:t.replace(/[，、；]$/,"")+punc;
+  if(/[」』]$/.test(t))return t.slice(0,-1)+punc+t.charAt(t.length-1);
+  return t+punc;
+}
+function trAuth(t){
+  var a=nkTR(t),b=nk2TR(t);
+  if(a&&TR_AUTH[a]!==undefined)return TR_AUTH[a].replace(/[。」』]$/,"");
+  if(b&&TR_AUTH[b]!==undefined)return TR_AUTH[b].replace(/[。」』]$/,"");
+  return null;
+}
+function nkTR(x){return String(x).replace(/^[「『“"\s]+|[」』”"\s]+$/g,"").replace(/[。！？；…\s]+$/,"");}
+function nk2TR(x){return nkTR(x).replace(/[，、：；！？。…「」『』“”"《》〈〉（）()\[\]【】\s]/g,"");}
+function trSeg(t0){
+  var t=String(t0).trim();
+  if(!t)return"";
+  var a=trAuth(t);if(a!==null)return a;
+  if(Object.prototype.hasOwnProperty.call(TR_W,t))return TR_W[t];
+  var g=trPatGo(t);
+  if(g!==null)return trWords(g);
+  var parts=t.split(/([，、：])/),out="";
+  for(var i=0;i<parts.length;i+=2){
+    var b=parts[i],sep=parts[i+1]||"";
+    if(!b){out+=sep;continue;}
+    var aa=trAuth(b);
+    if(aa!==null){out+=aa+sep;continue;}
+    if(Object.prototype.hasOwnProperty.call(TR_W,b)){out+=TR_W[b]+sep;continue;}
+    var gg=trPatGo(b);
+    out+=trWords(gg!==null?gg:b)+sep;
+  }
+  return out;
+}
+function trText(w){
+  if(!w)return null;
+  w=String(w).trim();
+  var whole=trAuth(w.replace(/…$/,""));
+  if(whole!==null)return[{o:w,t:whole}];
+  var parts=w.split(/([。！？；])/),out=[];
+  for(var i=0;i<parts.length;i+=2){
+    var body=parts[i],punc=parts[i+1]||"";
+    if(!body.trim()){if(out.length&&punc)out[out.length-1].t=trJoin(out[out.length-1].t,punc);continue;}
+    out.push({o:body+punc,t:trJoin(trSeg(body),punc)});
+  }
+  return out;
+}
+function trHTML(o){
+  if(!o.w||!TRD)return"";
+  return '<div class="trs" data-id="'+esc(o.id)+'">'+
+    '<button class="gh trs-btn">文献原文白话翻译 ▾</button>'+
+    '<div class="trs-b hide"></div></div>';
+}
+function trToggle(box){
+  var id=box.getAttribute("data-id"),b=box.querySelector(".trs-b"),btn=box.querySelector(".trs-btn");
+  if(!b||!btn)return;
+  if(!b.classList.contains("hide")){b.className="trs-b hide";btn.textContent="文献原文白话翻译 ▾";return;}
+  if(TRS[id]===undefined){
+    var o=RMAP[id]||findItemById(id),r=o?trText(o.w):null;
+    TRS[id]=(r&&r.length)?r:"（该条暂无典籍原文，无法对译）";
+  }
+  var v=TRS[id],html="";
+  if(typeof v==="string")html='<div class="tr-l">'+esc(v)+'</div>';
+  else html=v.map(function(q){
+    return '<div class="tr-l"><span class="tr-o">'+esc(q.o)+'</span>'+esc(q.t)+'</div>';
+  }).join("");
+  b.innerHTML=html+'<div class="tr-f">译文依通行译注体例与《古汉语常用字字典》通行义项整理，全部在本机浏览器内生成：<b>未联网、未调用任何外部接口、未使用任何密钥</b>。未能对译的专名与僻字按原文保留，不作臆测。仅供理解文意参考。</div>';
+  b.className="trs-b";
+  btn.textContent="收起翻译 ▴";
+}
+/* 我的笔记区：已写内容直接展示，点击进入编辑（空笔记只显示一行提示） */
+function noteHTML(o){
+  var t=noteOf(o.id);
+  if(t){
+    return '<div class="mynote has" data-id="'+esc(o.id)+'">'+
+      '<div class="mn-h"><b>我的笔记</b><span class="mn-t">'+esc(noteTime(o.id))+'</span>'+
+      '<button class="gh mn-edit">修改</button><button class="gh mn-del">删除</button></div>'+
+      '<div class="mn-b">'+esc(t)+'</div></div>';
+  }
+  return '<div class="mynote" data-id="'+esc(o.id)+'">'+
+    '<button class="gh mn-edit">＋ 补充我的笔记（用自己的话概括）</button></div>';
+}
+function noteTime(id){
+  var r=NOTES[id];
+  if(!r||!r.u)return "";
+  var d=new Date(r.u);
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+}
+
+/* ============ AI 诗词用法简析（本地生成：不联网、不用密钥） ============ */
+var ANA={}, RMAP={};
+function anaShortSrc(t){
+  t=String(t||"");
+  var bk=t.match(/《[^》]{1,16}》/g)||[], out=bk[0]||"", py=t.match(/〈[^〉]{1,16}〉/);
+  if(py)out+=py[0];else if(bk[1]&&bk[1]!==out)out+=bk[1];
+  return out;
+}
+var ANA_TRIM=/^[「『（(【\s"'“”]+|[」』）)】\s"'“”]+$/g;
+function anaSense(o){
+  var d=String(o.d||""), m;
+  if(d){
+    m=d.match(/(?:后指|喻指|泛指|借指|指|喻|咏|谓)([^。；;，,、]{2,22})/);
+    if(m)return{k:"sense",t:m[1].replace(ANA_TRIM,"")};
+    m=d.match(/^[^：:]{1,14}[：:]([^。；;]{4,24})/);
+    if(m)return{k:"sense",t:m[1].replace(ANA_TRIM,"")};
+  }
+  var w=String(o.w||"");
+  if(w){
+    var segs=w.split(/[。！？；]/).map(function(x){return x.replace(ANA_TRIM,"").trim();}).filter(Boolean);
+    var hit="";
+    for(var i=0;i<segs.length;i++){
+      if(segs[i].indexOf(o.n)>=0||(o.n.length>=2&&segs[i].indexOf(o.n.slice(0,2))>=0)){hit=segs[i];break;}
+    }
+    if(!hit)hit=segs[0]||"";
+    if(hit){
+      hit=hit.replace(/[「『]\s*/g,"").replace(/\s*[」』]/g,"");
+      if(hit.length>26)hit=hit.slice(0,26)+"…";
+      return{k:"src",t:hit};
+    }
+  }
+  return null;
+}
+var ANA_EMO=[
+  ["悲慨沉郁","悲叹伤恨怨泪泣穷不遇迟暮零落飘零冤谪贬羁旅"],
+  ["清峻孤高","节操隐逸孤独冰霜清洁高洁廉耻守节"],
+  ["雄浑豪壮","壮豪剑兵征战功名封侯万里旌旗铁马金戈塞"],
+  ["闲逸旷达","闲逸悠静幽田园菊松箪瓢杯酒琴棋渔钓"],
+  ["缠绵哀婉","相思闺妆眉离别怨妾娇娥红颜"],
+  ["庄重典雅","德礼圣贤颂君仁义孝祀典章"],
+  ["飘逸出尘","仙霞蓬莱羽丹神太虚壶中"],
+  ["讽喻激切","讽讥刺谗佞谀奢淫昏惑蔽"]];
+function anaEmoScore(t){
+  if(!t)return{t:"",s:0};
+  var best="",bs=0;
+  ANA_EMO.forEach(function(e){
+    var sc=0;
+    for(var i=0;i<e[1].length;i++){if(t.indexOf(e[1][i])>=0)sc++;}
+    if(sc>bs){bs=sc;best=e[0];}
+  });
+  return{t:best,s:bs};
+}
+function anaEmo(o){
+  var a=anaEmoScore(String(o.d||""));
+  if(a.s>=1)return a.t;
+  var b=anaEmoScore(String(o.w||"")), c=anaEmoScore((o.q||[]).map(function(x){return x[0];}).join("")),
+      nm=anaEmoScore(String(o.n||"")), score={}, pick="";
+  [[b,1],[c,2],[nm,1]].forEach(function(p){
+    var r=p[0];
+    if(!r.t)return;
+    score[r.t]=(score[r.t]||0)+r.s*p[1];
+    if(score[r.t]>(score[pick]||0))pick=r.t;
+  });
+  return (score[pick]||0)>=2?pick:"蕴藉含蓄";
+}
+var ANA_KING=["刘彻","刘邦","李隆基","李世民","武则天","曹操","孙权","刘备","杨广","嬴政","赵匡胤","朱元璋","李煜","陈叔宝","项羽","勾践","夫差","齐桓公","晋文公","秦始皇","汉武帝","唐太宗","汉高祖","楚怀王"];
+var ANA_SAGE="夷齐由巢接舆沮溺庄老屈贾陶阮嵇渊明严陵四皓张翰季鹰范蠡";
+function anaDev(o){
+  var who=String(o.who||""), n=String(o.n||""), d=String(o.d||""), w=String(o.w||"");
+  var lines=(o.q||[]).map(function(x){return x[0];}).join("|"),
+      titles=(o.q||[]).map(function(x){return x[1];}).join("|");
+  var cand=[];
+  if(ANA_KING.indexOf(who)>=0||/帝|王|侯|相|将/.test(who))cand.push(["hist","借古咏史，以旧事寄兴亡之慨"]);
+  if(new RegExp("["+ANA_SAGE+"]").test(who))cand.push(["sage","以古贤自况，明出处去就之志"]);
+  if(/德|礼|圣|贤|仁义|孝|颂|王言|丝纶/.test(d))cand.push(["hymn","援典颂美，取郑重之体"]);
+  if(/松|竹|梅|兰|菊|鹤|凤|麟|龙|雪|莲|柳|雁|鸿/.test(n))cand.push(["thing","咏物托意，借物象比德见志"]);
+  if(/谗|佞|谀|奢|淫|昏|惑|蔽|讥/.test(d+w))cand.push(["satire","借典讽喻，针砭而语存忠厚"]);
+  if(/(送|别|饯)/.test(titles))cand.push(["fare","用典入送别，以古事衬今情"]);
+  if(/(莫|岂|何曾|未必|不须|谁言|谁道|那堪)/.test(lines))cand.push(["rev","或用反笔翻案，正典反用以见新意"]);
+  if(/仙|蓬莱|丹|羽化|霞|壶中/.test(d+w+n))cand.push(["imm","托寓仙道，寄超然物外之思"]);
+  if(/归隐|隐居|田园|山林|耕钓|渔|采薇|挂冠/.test(d+w+titles))cand.push(["ret","借典言归隐，写林泉之志"]);
+  if(/悲|叹|伤|恨|怨|穷|不遇/.test(d+w))cand.push(["lament","借古抒怀，寄不遇之慨"]);
+  if(/曰|云|谓|问|对曰/.test(w))cand.push(["quote","借典论理，以古人之言证己意"]);
+  if(/(山|水|江|月|云|风|花|鸟|春|秋|夜|晓)/.test(lines))cand.push(["scene","典景相融，以景衬情而意不隔"]);
+  cand.push(["lyric","借古抒怀，将己意寄于旧事"]);
+  if(/史|传|书|记|志|世家|列传/.test(String(o.s||"")))cand.push(["hist3","以史事入诗，借往事以照今情"]);
+  cand.push(["gen","用典入诗，以简驭繁而省铺叙"]);
+  var seen={}, out=[];
+  cand.forEach(function(c){if(!seen[c[0]]){seen[c[0]]=1;out.push(c[1]);}});
+  return out.slice(0,2);
+}
+function buildAna(o){
+  var src=anaShortSrc(o.s), sn=anaSense(o), emo=anaEmo(o), dev=anaDev(o), eg="";
+  if(o.q&&o.q[0]&&o.q[0][0]){
+    var line=String(o.q[0][0]).trim();
+    var frag=line.length>12?line.slice(0,12).replace(/[，。、；：！？]$/,"")+"…":line;
+    eg="如"+String(o.q[0][1]||"").split(" ")[0]+"「"+frag+"」。";
+  }
+  var head="出"+(src||"典籍")+"，",
+      mid=sn?(sn.k==="sense"?"本指"+sn.t+"，":"典见「"+sn.t+"」，"):"";
+  var t=[head+mid+"情调"+emo+"。诗人用法有二：一以"+dev[0]+"；一以"+dev[1]+"。"+eg,
+         head+mid+"情调"+emo+"。诗人一以"+dev[0]+"，一以"+dev[1]+"。"+eg,
+         head+mid+"情调"+emo+"。一以"+dev[0]+"，一以"+dev[1]+"。",
+         head+mid+"情调"+emo+"。"];
+  for(var i=0;i<t.length;i++){if(t[i].length<=120)return t[i];}
+  return head+"情调"+emo+"。";
+}
+function anaHTML(o){
+  return '<div class="anl" data-id="'+esc(o.id)+'">'+
+    '<button class="gh anl-btn">查看赏析 ▾</button>'+
+    '<div class="anl-b hide"></div></div>';
+}
+function anaToggle(box){
+  var id=box.getAttribute("data-id"), b=box.querySelector(".anl-b"), btn=box.querySelector(".anl-btn");
+  if(!b||!btn)return;
+  if(!b.classList.contains("hide")){b.className="anl-b hide";btn.textContent="查看赏析 ▾";return;}
+  if(ANA[id]===undefined){
+    var o=RMAP[id]||findItemById(id);
+    ANA[id]=o?buildAna(o):"（未取到该条数据，无法分析）";
+  }
+  b.innerHTML=esc(ANA[id])+'<div class="anl-f">本地分析引擎生成，未联网、未使用任何密钥；依据为该条的搜韵释义、典籍原文与诗词用例。</div>';
+  b.className="anl-b";
+  btn.textContent="收起赏析 ▴";
+}
+function cardHTML(o,inFav){
+  RMAP[o.id]=o;
+  var done=isChecked(o.id);
+  var isFav=!!FAV[o.id];
+  var q="";
+  if(o.q&&o.q.length){
+    q='<div class="qt">'+o.q.map(function(x){
+      return "「"+esc(x[0])+"」"+(x[1]?'<span class="au"> —— '+esc(x[1])+'</span>':"");
+    }).join("<br>")+'</div>';
+  }
+  return '<div class="card" data-id="'+esc(o.id)+'">'+
+    '<div class="nm">'+esc(o.n)+'</div>'+
+    '<div class="who">人物：'+esc(o.who||"—")+'</div>'+
+    (o.d?'<div class="df">'+esc(o.d)+'</div>':'<div class="df" style="color:var(--tx2)">（搜韵此条暂无简释）</div>')+
+    srcHTML(o)+
+    trHTML(o)+
+    (q||'<div class="sr" style="margin-top:6px">（搜韵此条未附诗词例句）</div>')+
+    '<div class="act">'+
+      (inFav?'':'<label class="ck"><input type="checkbox" class="ck-in" '+(done?"checked":"")+'>已打卡</label>')+
+      '<button class="gh fav-btn">'+(isFav?"取消收藏":"收藏")+'</button>'+
+      '<button class="gh ask-btn">问AI</button>'+
+    '</div>'+
+    noteHTML(o)+
+    anaHTML(o)+
+    '</div>';
+}
+
+function renderMain(){
+  var p=PEOPLE[cur]||{n:"—",c:0};
+  var items=itemsOf(cur);
+  $("curName").textContent=p.n;
+  $("curCount").textContent=DATA_MODE==="souyun"
+    ?("搜韵典故 "+(p.c||0)+" 条 · 本地已收录 "+items.length+" 条")
+    :("示例库 "+(p.c||0)+" 条");
+  $("curOrder").textContent="顺序 "+(cur+1)+" / "+PEOPLE.length+" 位";
+  var maxN=items.length;
+  $("numHint").textContent=maxN?("该人物名下 "+maxN+" 条，可填 1 ~ "+maxN):"该人物本地暂无典故明细";
+  $("num").value=String(SET.count);
+  $("allBtn").textContent=showAll?"仅显示抽取结果":"载入本人全部典故";
+
+  if(!items.length){
+    $("cards").innerHTML='<div class="hint" style="padding:12px 0">'+
+      '「'+esc(p.n)+'」在搜韵共 '+(p.c||0)+' 条典故，但本地数据文件未包含其明细。<br>'+
+      '解决方法：双击运行同目录的 <b>更新搜韵数据.bat</b> 重新抓取（默认抓典故数 ≥ 3 的人物，加 <code>--min 1</code> 抓全部 2513 位）；'+
+      '或在下方「数据与联网设置」里填写代理地址后点「联网获取当前人物典故」。'+
+      '<br><br><button class="gh" id="jumpNext">跳到下一位有典故的人物</button></div>';
+    var jn=$("jumpNext"); if(jn)jn.onclick=gotoNextWithData;
+    $("todayTitle").textContent="今日打卡 · "+today();
+    $("prog").textContent="";return;
+  }
+
+  var list=currentList();
+  $("todayTitle").textContent="今日打卡 · "+today();
+  var doneIds=checkedIds(),c=0;
+  list.forEach(function(o){if(doneIds[o.id])c++;});
+  $("prog").textContent="本轮已打卡 "+c+" / "+list.length+" 条"+
+    ((list.length&&c>=list.length)?"　本轮已完成，可点「下一位」继续":"");
+  $("cards").innerHTML=list.map(function(o){return cardHTML(o,false);}).join("");
+}
+
+var PLIMIT=200, PFILTER=null;
+function personMatches(p,q){
+  if(!q)return true;
+  return p.n.indexOf(q)>=0;
+}
+function renderPersonList(){
+  var q=(PFILTER||"").trim();
+  var arr=[];
+  for(var i=0;i<PEOPLE.length&&arr.length<PLIMIT;i++){
+    if(personMatches(PEOPLE[i],q))arr.push(i);
+  }
+  $("plist").innerHTML=arr.map(function(i){
+    var p=PEOPLE[i];
+    var has=hasDetail(i);
+    var own=itemsOf(i).length;
+    return '<button class="prow'+(i===cur?" on":"")+'" data-i="'+i+'">'+
+      '<span class="pi">'+(i+1)+'</span>'+
+      '<span class="pn">'+esc(p.n)+'</span>'+
+      '<span class="pc">('+p.c+')</span>'+
+      '<span class="pd">'+(has?("本地 "+own+" 条"):"未收录明细")+'</span></button>';
+  }).join("")||'<div class="hint">没有匹配的人物。</div>';
+  var total=q?arr.length:PEOPLE.length;
+  $("pStat").textContent="已显示 "+arr.length+" 位"+(q?("（匹配，全部匹配数可能更多）"):"")+"；共 "+PEOPLE.length+" 位";
+  $("moreBtn").className=(arr.length>=PLIMIT?"":"hide");
+}
+function selectPerson(i,autoDraw){
+  if(i<0||i>=PEOPLE.length)return;
+  cur=i;write(K_CUR,{i:i});
+  showAll=false;drawnIds=null;
+  goto(0);
+  renderMain();renderPersonList();
+  if(autoDraw&&itemsOf(i).length){
+    drawnIds=drawFor(i,Math.min(SET.count,itemsOf(i).length)).map(function(o){return o.id;});
+    renderMain();
+  }
+}
+function gotoNext(d){
+  var i=cur+d;
+  if(i<0){toast("已经是第一位人物了");return;}
+  if(i>=PEOPLE.length){toast("已经是最后一位人物了");return;}
+  selectPerson(i,true);
+}
+function gotoNextWithData(){
+  for(var i=cur+1;i<PEOPLE.length;i++){if(itemsOf(i).length){selectPerson(i,true);return;}}
+  toast("后面已没有本地收录明细的人物了");
+}
+function renderFav(){
+  var arr=[],k;for(k in FAV)arr.push(FAV[k]);
+  $("favN").textContent=arr.length;
+  $("favCards").innerHTML=arr.length?arr.map(function(o){return cardHTML(o,true);}).join("")
+    :'<div class="hint">还没有收藏。在典故卡片上点「收藏」即可加入这里。</div>';
+}
+/* ============ 我的笔记页 ============ */
+var NFILTER="";
+function noteCardsData(){
+  var arr=[],k;
+  for(k in NOTES){
+    var t=String((NOTES[k]&&NOTES[k].t)||"").trim();
+    if(!t)continue;
+    arr.push({id:k,t:t,u:(NOTES[k].u||0)});
+  }
+  /* 按修改时间倒序；同一毫秒写入时用典故名兜底，保证顺序稳定 */
+  arr.sort(function(a,b){
+    if(b.u!==a.u)return b.u-a.u;
+    var na=(findItemById(a.id)||{}).n||a.id, nb=(findItemById(b.id)||{}).n||b.id;
+    return na<nb?-1:(na>nb?1:0);
+  });
+  if(NFILTER){
+    var q=NFILTER.toLowerCase();
+    arr=arr.filter(function(r){
+      var o=findItemById(r.id);
+      var nm=o?o.n:(r.id.split("|")[1]||"");
+      return nm.toLowerCase().indexOf(q)>=0||r.t.toLowerCase().indexOf(q)>=0;
+    });
+  }
+  return arr;
+}
+function renderNote(){
+  var arr=noteCardsData();
+  $("noteN").textContent=noteCount();
+  if(!arr.length){
+    $("noteCards").innerHTML='<div class="hint">'+
+      (NFILTER?"没有匹配的笔记。":'还没有笔记。在任意典故卡片下方点「＋ 补充我的笔记」，用自己的话写一句概括即可。')+
+      '</div>';
+    return;
+  }
+  $("noteCards").innerHTML=arr.map(function(r){
+    var o=findItemById(r.id);
+    var nm=o?o.n:(r.id.split("|")[1]||r.id);
+    var who=o?(o.who||""):"";
+    var d=new Date(r.u),dt=r.u?(d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes())):"";
+    return '<div class="card" data-id="'+esc(r.id)+'">'+
+      '<div class="nm">'+esc(nm)+'</div>'+
+      (who?'<div class="who">人物：'+esc(who)+'</div>':'')+
+      (o&&o.d?'<div class="df" style="color:var(--tx2);font-size:12.5px">搜韵简释：'+esc(o.d)+'</div>':'')+
+      '<div class="mynote has" data-id="'+esc(r.id)+'">'+
+        '<div class="mn-h"><b>我的笔记</b><span class="mn-t">'+esc(dt)+'</span>'+
+        '<button class="gh mn-edit">修改</button><button class="gh mn-del">删除</button></div>'+
+        '<div class="mn-b">'+esc(r.t)+'</div>'+
+      '</div></div>';
+  }).join("");
+}
+/* 导出为纯文本，便于自己留档 */
+function exportNotes(){
+  var arr=noteCardsData();
+  if(!arr.length){toast("还没有笔记可导出");return;}
+  var lines=["搜韵典故每日打卡 · 我的笔记","导出时间："+new Date().toLocaleString(),
+             "共 "+arr.length+" 条（本文件由本机浏览器生成，仅含你自己的笔记）",""];
+  arr.forEach(function(r,n){
+    var o=findItemById(r.id);
+    var nm=o?o.n:(r.id.split("|")[1]||r.id);
+    var who=o?(o.who||""):"";
+    lines.push((n+1)+". "+nm+(who?"（"+who+"）":""));
+    if(o&&o.s)lines.push("   出处："+o.s);
+    lines.push("   我的笔记："+r.t.replace(/\n/g," "));
+    lines.push("");
+  });
+  try{
+    var blob=new Blob([lines.join("\r\n")],{type:"text/plain;charset=utf-8"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="我的典故笔记_"+today()+".txt";
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},0);
+    toast("已导出 "+arr.length+" 条笔记");
+  }catch(err){toast("导出失败，可改用浏览器另存");}
+}
+var calY,calM;
+function renderCal(y,m){
+  var first=new Date(y,m,1),start=first.getDay(),last=new Date(y,m+1,0).getDate();
+  $("mTitle").textContent=y+" 年 "+(m+1)+" 月";
+  var html="",day=1;
+  for(var w=0;w<6;w++){
+    html+="<tr>";
+    for(var i=0;i<7;i++){
+      if((w===0&&i<start)||day>last){html+="<td></td>";continue;}
+      var k=dkey(new Date(y,m,day)),n=(CHECK[k]||[]).length;
+      var cls=((n?"has ":"")+(k===today()?"today":"")).trim();
+      html+='<td class="'+cls+'" title="'+k+'">'+day+(n?'<div style="font-size:10px">'+n+'</div>':'')+"</td>";
+      day++;
+    }
+    html+="</tr>";
+    if(day>last)break;
+  }
+  $("calBody").innerHTML=html;
+}
+function renderHist(){
+  var ks=Object.keys(CHECK).filter(function(k){return (CHECK[k]||[]).length;}).sort().reverse();
+  $("histList").innerHTML=ks.length?ks.map(function(k){
+    return "<li><b>"+k+"</b>　打卡 "+CHECK[k].length+" 条："+CHECK[k].map(function(id){
+      var p=id.split("|");return esc(p[1]||id);
+    }).join("、")+"</li>";
+  }).join(""):'<li class="hint">暂无打卡记录。</li>';
+}
+function renderCacheInfo(){
+  var n=Object.keys(CACHE.map).length;
+  $("cacheInfo").textContent=n
+    ?("当前联网缓存："+n+" 位人物，抓取于 "+(CACHE.ts?new Date(CACHE.ts).toLocaleString():"—")+"，保留 7 天后自动清理。")
+    :"当前没有联网取回的缓存数据（无需缓存，页面用本地数据文件即可完整运行）。";
+}
+/* 人物列表较重（2513 位），只在需要时重绘 */
+function renderAll(){renderMain();renderFav();renderNote();renderCal(calY,calM);renderHist();renderCacheInfo();}
+
+/* ============ 条数校验：只接受正整数，且不超过该人物典故数 ============ */
+function commitNum(){
+  var el=$("num"),raw=(el.value||"").trim();
+  var items=itemsOf(cur),maxN=items.length;
+  if(!/^[0-9]+$/.test(raw)){
+    toast("请输入正整数（如 1、3、10）；文字、符号、小数均不接受");
+    el.value=String(SET.count);return false;
+  }
+  var n=parseInt(raw,10);
+  if(!(n>0)){toast("条数必须大于 0，请输入正整数");el.value=String(SET.count);return false;}
+  if(!maxN){toast("「"+((PEOPLE[cur]||{}).n||"")+"」本地暂无典故明细，无法抽取");el.value=String(SET.count);return false;}
+  if(n>maxN){toast("「"+PEOPLE[cur].n+"」本地共 "+maxN+" 条典故，最多填 "+maxN);el.value=String(SET.count);return false;}
+  SET.count=n;write(K_SET,SET);
+  showAll=false;
+  drawnIds=drawFor(cur,n).map(function(o){return o.id;});
+  renderMain();
+  $("status").textContent="已按 "+n+" 条抽取（同一人物同一天结果稳定）";
+  return true;
+}
+
+/* ============ 联网取数（仅手动点击，仅读公开页面） ============ */
+function normalizeOnline(data){
+  var arr=[];
+  if(!Array.isArray(data))return arr;
+  data.forEach(function(r){
+    if(!r)return;
+    var n=r.name||r.n||"";if(!n)return;
+    arr.push({n:n,d:r.definition||r.d||"",s:r.source||r.s||"",w:r.word||r.w||"",q:r.quotes||r.q||[]});
+  });
+  return arr;
+}
+function fetchPerson(){
+  var proxy=($("proxy").value||"").trim();
+  if(!proxy){toast("请先填写代理地址；或改用 更新搜韵数据.py 在本机抓取");return;}
+  var p=PEOPLE[cur];if(!p)return;
+  var target=encodeURIComponent("https://sou-yun.cn/AllusionsIndex.aspx?people="+p.i);
+  var url=proxy.indexOf("{url}")>=0?proxy.replace("{url}",target):proxy+target;
+  $("status").textContent="正在联网获取「"+p.n+"」…";
+  fetch(url,{method:"GET",headers:{Accept:"application/json,text/html"}})
+   .then(function(r){return r.text();})
+   .then(function(t){
+     var j=null;try{j=JSON.parse(t);}catch(e){}
+     if(j&&j.contents)j=j.contents;                 /* 常见代理包装 */
+     var items=normalizeOnline(j&&j.items?j.items:j);
+     if(!items.length){
+       $("status").textContent="联网返回内容无法解析为典故列表（可能代理未返回 JSON）。";
+       toast("获取失败：返回内容无法解析");return;
+     }
+     CACHE.map[cur]={items:items};CACHE.ts=Date.now();write(K_CACHE,CACHE);
+     ITEMS[cur]=null;delete ITEMS[cur];IDX=null;
+     showAll=false;drawnIds=null;renderAll();
+     $("status").textContent="已联网获取「"+p.n+"」"+items.length+" 条典故，并缓存 7 天";
+   })
+   .catch(function(){$("status").textContent="联网取数失败（代理不可用或跨域被拦截）。";toast("联网取数失败");});
+}
+
+/* ============ AI ============ */
+function askAI(){
+  var q=($("q").value||"").trim();
+  var key=localStorage.getItem(K_KEY)||"";
+  if(!q){toast("请先输入问题");return;}
+  if(!key){toast("请先填写并保存 DeepSeek API Key");return;}
+  $("ans").textContent="提问中…";
+  fetch("https://api.deepseek.com/chat/completions",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
+    body:JSON.stringify({model:"deepseek-chat",stream:false,
+      messages:[{role:"system",content:SYS},{role:"user",content:q}],
+      temperature:0.3,max_tokens:900})
+  }).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+   .then(function(res){
+     if(!res.ok){$("ans").textContent="请求失败："+((res.j&&res.j.error&&res.j.error.message)||"请检查 API Key 或网络");return;}
+     var t=res.j&&res.j.choices&&res.j.choices[0]&&res.j.choices[0].message&&res.j.choices[0].message.content;
+     $("ans").textContent=t||"（无返回内容）";
+   })
+   .catch(function(){$("ans").textContent="请求失败：浏览器跨域被拦截或网络不可达。可改用本地代理地址，或检查网络。";});
+}
+
+/* ============ 事件 ============ */
+function bind(){
+  $("prevP").onclick=function(){gotoNext(-1);};
+  $("nextP").onclick=function(){gotoNext(1);};
+  $("num").onchange=commitNum;
+  $("num").onblur=function(){if(($("num").value||"").trim()!=="")commitNum();};
+  $("num").onkeydown=function(e){if(e.key==="Enter")this.blur();};
+  $("drawBtn").onclick=function(){
+    if(!commitNum())return;
+  };
+  $("allBtn").onclick=function(){
+    showAll=!showAll;drawnIds=showAll?null:drawnIds;
+    renderMain();
+    $("status").textContent=showAll?"已载入该人物全部典故":"已恢复为抽取结果";
+  };
+  $("pickBtn").onclick=function(){goto(1);};
+
+  $("search").onchange=function(){
+    var q=this.value.trim();
+    if(!q){$("searchMsg").textContent="";return;}
+    var hit=-1,partial=-1;
+    for(var i=0;i<PEOPLE.length;i++){
+      if(PEOPLE[i].n===q){hit=i;break;}
+      if(partial<0&&PEOPLE[i].n.indexOf(q)>=0)partial=i;
+    }
+    if(hit<0)hit=partial;
+    if(hit<0){$("searchMsg").textContent="没有找到「"+q+"」";toast("未找到该人物");return;}
+    $("searchMsg").textContent="已定位："+PEOPLE[hit].n+"（第 "+(hit+1)+" 位）";
+    selectPerson(hit,true);
+  };
+  $("search").onkeydown=function(e){if(e.key==="Enter")this.blur();};
+
+  $("pSearch").oninput=function(){PFILTER=this.value;PLIMIT=200;renderPersonList();};
+  $("pClear").onclick=function(){$("pSearch").value="";PFILTER="";PLIMIT=200;renderPersonList();};
+  $("moreBtn").onclick=function(){PLIMIT+=500;renderPersonList();};
+
+  $("proxy").value=(SET.proxy||"");
+  $("proxy").onchange=function(){SET.proxy=this.value.trim();write(K_SET,SET);};
+  $("fetchP").onclick=fetchPerson;
+
+  $("resetBtn").onclick=function(){
+    if(!confirm("确认清空全部打卡记录？收藏与缓存不受影响。"))return;
+    CHECK={};write(K_CHECK,CHECK);renderAll();toast("打卡记录已重置");
+  };
+
+  document.addEventListener("change",function(e){
+    if(e.target.classList&&e.target.classList.contains("ck-in")){
+      var id=e.target.closest(".card").getAttribute("data-id");
+      var list=CHECK[today()]||[],i=list.indexOf(id);
+      if(e.target.checked){if(i<0)list.push(id);}else{if(i>=0)list.splice(i,1);}
+      CHECK[today()]=list;write(K_CHECK,CHECK);
+      renderMain();renderCal(calY,calM);renderHist();
+      var shown=currentList(),doneIds=checkedIds(),c=0;
+      shown.forEach(function(o){if(doneIds[o.id])c++;});
+      if(shown.length&&c>=shown.length)toast("本轮打卡已完成，可点「下一位」继续学习");
+    }
+  });
+
+  document.addEventListener("click",function(e){
+    var t=e.target;
+    if(t.classList&&t.classList.contains("prow")){var i=parseInt(t.getAttribute("data-i"),10);selectPerson(i,true);return;}
+    if(t.classList&&t.classList.contains("fav-btn")){
+      var id=t.closest(".card").getAttribute("data-id");
+      if(FAV[id]){delete FAV[id];toast("已取消收藏");}
+      else{
+        var o=findItemById(id);
+        if(o){FAV[id]=o;toast("已收藏");}
+      }
+      write(K_FAV,FAV);renderMain();renderFav();return;
+    }
+    if(t.classList&&t.classList.contains("ask-btn")){
+      var card=t.closest(".card");
+      var nm=card.querySelector(".nm").textContent;
+      var who=(card.querySelector(".who")||{}).textContent||"";
+      $("q").value="关于典故「"+nm+"」（"+(who.replace(/^人物：/,"")||"—")+"）：";
+      $("q").focus();
+      window.scrollTo(0,document.body.scrollHeight);
+    }
+    if(t.classList&&t.classList.contains("anl-btn")){anaToggle(t.closest(".anl"));return;}
+    if(t.classList&&t.classList.contains("trs-btn")){trToggle(t.closest(".trs"));return;}
+    /* 我的笔记：编辑 / 保存 / 取消 / 删除 */
+    if(t.classList&&t.classList.contains("mn-edit")){editNote(t.closest(".mynote"));return;}
+    if(t.classList&&t.classList.contains("mn-save")){saveNote(t.closest(".mynote"));return;}
+    if(t.classList&&t.classList.contains("mn-cancel")){renderAll();return;}
+    if(t.classList&&t.classList.contains("mn-del")){
+      var box=t.closest(".mynote"),id=box.getAttribute("data-id");
+      if(!confirm("确认删除这条笔记？删除后不可恢复。"))return;
+      noteSave(id,"");renderAll();toast("笔记已删除");return;
+    }
+  });
+
+  /* 笔记编辑：Ctrl+Enter 保存，Esc 取消 */
+  document.addEventListener("keydown",function(e){
+    var t=e.target;
+    if(!t.classList||!t.classList.contains("mn-in"))return;
+    if(e.key==="Escape"){renderAll();}
+    else if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){saveNote(t.closest(".mynote"));}
+  });
+  /* 输入时实时显示字数 */
+  document.addEventListener("input",function(e){
+    var t=e.target;
+    if(!t.classList||!t.classList.contains("mn-in"))return;
+    var pv=t.closest(".mynote").querySelector(".mn-pv");
+    if(pv)pv.textContent=t.value.trim().length+" 字";
+  });
+
+  $("tabMain").onclick=function(){goto(0);};
+  $("tabPerson").onclick=function(){goto(1);};
+  $("tabFav").onclick=function(){goto(2);};
+  $("tabNote").onclick=function(){goto(3);};
+  $("tabHist").onclick=function(){goto(4);};
+
+  /* 我的笔记页 */
+  $("nSearch").oninput=function(){NFILTER=(this.value||"").trim();renderNote();};
+  $("nClear").onclick=function(){$("nSearch").value="";NFILTER="";renderNote();};
+  $("nExport").onclick=exportNotes;
+  $("nReset").onclick=function(){
+    if(!noteCount()){toast("还没有笔记");return;}
+    if(!confirm("确认清空全部 "+noteCount()+" 条笔记？此操作不可恢复。打卡与收藏不受影响。"))return;
+    NOTES={};write(K_NOTE,NOTES);renderAll();toast("笔记已全部清空");
+  };
+  function goto(i){
+      var ids=["viewMain","viewPerson","viewFav","viewNote","viewHist"],
+        bs=["tabMain","tabPerson","tabFav","tabNote","tabHist"];
+    for(var k=0;k<ids.length;k++){$(ids[k]).className=(k===i?"":"hide");$(bs[k]).className=(k===i?"on":"");}
+    if(i===1)renderPersonList();
+    if(i===3)renderNote();
+    if(i===4)renderCal(calY,calM);
+  }
+  window.goto=goto;
+
+  var now=new Date();calY=now.getFullYear();calM=now.getMonth();
+  $("mPrev").onclick=function(){calM--;if(calM<0){calM=11;calY--;}renderCal(calY,calM);};
+  $("mNext").onclick=function(){calM++;if(calM>11){calM=0;calY++;}renderCal(calY,calM);};
+
+  $("themeBtn").onclick=function(){
+    var nx=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+    document.documentElement.setAttribute("data-theme",nx);
+    localStorage.setItem(K_THEME,nx);
+    this.textContent=nx==="dark"?"浅色":"暗色";
+  };
+
+  $("saveKey").onclick=function(){
+    var v=($("key").value||"").trim();
+    if(!v){del(K_KEY);toast("已清除本机保存的 Key");return;}
+    localStorage.setItem(K_KEY,v);toast("已保存到本机浏览器");
+  };
+  $("key").value=localStorage.getItem(K_KEY)||"";
+  $("askBtn").onclick=askAI;
+  $("clearQ").onclick=function(){$("ans").textContent="（回答显示在这里）";};
+}
+
+/* 把卡片上的笔记区切换成编辑框（不重绘整页，避免丢失其他卡片的编辑状态） */
+function editNote(box){
+  if(!box)return;
+  var id=box.getAttribute("data-id");
+  var t=noteOf(id);
+  box.className="mynote has";
+  box.innerHTML='<div class="mn-h"><b>我的笔记</b><span class="mn-t">用自己的话概括这个典故</span></div>'+
+    '<textarea class="mn-in" placeholder="例：孔子西狩获麟而叹「吾道穷」，后世用来说生不逢时、道不行于世。">'+esc(t)+'</textarea>'+
+    '<div class="mn-row"><button class="pri mn-save">保存笔记</button>'+
+    '<button class="gh mn-cancel">取消</button>'+
+    '<span class="mn-pv">'+t.trim().length+' 字</span>'+
+    '<span style="color:var(--tx2);font-size:11.5px">Ctrl+Enter 保存 · Esc 取消</span></div>';
+  var ta=box.querySelector(".mn-in");
+  if(ta){ta.focus();}
+}
+function saveNote(box){
+  if(!box)return;
+  var ta=box.querySelector(".mn-in");
+  if(!ta)return;
+  var id=box.getAttribute("data-id"),v=ta.value;
+  noteSave(id,v);
+  renderAll();
+  toast(v.trim()?"笔记已保存（仅存本机）":"笔记已清空");
+}
+
+/* 按 id 找条目：先收藏，再全库一次性建索引（仅在收藏/问AI时需要） */
+function buildIdx(){
+  if(IDX)return IDX;
+  IDX={};
+  for(var i=0;i<PEOPLE.length;i++){
+    var L=itemsOf(i);
+    for(var j=0;j<L.length;j++)IDX[L[j].id]=L[j];
+  }
+  return IDX;
+}
+function findItemById(id){
+  if(FAV[id])return FAV[id];
+  var t=buildIdx()[id];
+  return t||null;
+}
+
+/* ============ 初始化 ============ */
+(function init(){
+  var th=localStorage.getItem(K_THEME);
+  if(!th)th=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";
+  document.documentElement.setAttribute("data-theme",th);
+  $("themeBtn").textContent=(th==="dark")?"浅色":"暗色";
+
+  buildData();
+  cleanCache();
+  var now=new Date();calY=now.getFullYear();calM=now.getMonth();
+  var ci=parseInt((CUR||{}).i,10); cur=(ci>=0&&ci<PEOPLE.length)?ci:0;
+  bind();
+  renderAll();
+  renderPersonList();
+
+  if(DATA_MODE==="souyun"){
+    var n=PEOPLE.length, cov=SY_A?Object.keys(SY_A).length:0;
+    $("dataTag").textContent="数据源：搜韵典故索引 · 共 "+n+" 位人物"+(cov?("，已收录 "+cov+" 位典故明细"):"");
+    $("status").textContent="已载入搜韵人物索引（"+n+" 位）"+
+      (cov?("，其中 "+cov+" 位含典故明细"):"，但明细文件缺失")+
+      (DATA_TIME?("；数据抓取于 "+DATA_TIME):"");
+  }else{
+    $("dataTag").textContent="未找到 souyun-people.js，当前使用内置示例库（30 条）";
+    $("status").textContent="未找到搜韵数据文件，已回退内置示例库。请运行 更新搜韵数据.py 生成完整数据。";
+  }
+})();
+</script>
+</body>
+</html>
